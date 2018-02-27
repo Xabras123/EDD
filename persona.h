@@ -10,7 +10,8 @@ class Persona{
 
 	private:
 		string codigo;
-		string nombreYApellido;
+		string nombre;
+		string apellido
 		string direccion;
 		string ciudad;
 		string telefono;
@@ -18,16 +19,18 @@ class Persona{
 		//Persona();
 		//~Persona();
         void setCodigo(string codigoIn);
-        void setNombreYApellido(string nombreIn);
+        void setNombre(string nombreIn);
         void setDireccion(string DireccionIn);
         void setCiudad(string ciudadIn);
         void setTelefono(string telIn);
+	void setNombre(string apellidoIn)
 
         string getCodigo( );
         string getNombreYApellido( );
         string getDireccion( );
         string getCiudad( );
         string getTelefono();
+	string getApellido()
 
 };
 
