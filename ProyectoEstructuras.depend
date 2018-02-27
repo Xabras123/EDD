@@ -1,0 +1,67 @@
+# depslib dependency file v1.0
+1519719839 source:c:\users\alejandro\desktop\pc\proyectoestructuras\main.cpp
+	<iostream>
+	"oficina.h"
+	"oficina.hpp"
+	"paquete.h"
+	"paquete.hpp"
+	"region.h"
+	"region.hpp"
+	"persona.h"
+	"persona.hpp"
+	<list>
+	<string.h>
+	<fstream>
+	<string>
+	<stdlib.h>
+	<limits.h>
+	<cmath>
+	<cstring>
+
+1519719895 c:\users\alejandro\desktop\pc\proyectoestructuras\oficina.h
+	<stack>
+	<queue>
+	<string.h>
+	"oficina.hpp"
+
+1519718377 c:\users\alejandro\desktop\pc\proyectoestructuras\oficina.hpp
+	<iostream>
+	"oficina.h"
+	<string>
+	<list>
+
+1519719895 c:\users\alejandro\desktop\pc\proyectoestructuras\paquete.h
+	<stack>
+	<queue>
+	"Persona.h"
+	"paquete.hpp"
+
+1519719895 c:\users\alejandro\desktop\pc\proyectoestructuras\persona.h
+	<stack>
+	<queue>
+	"persona.hpp"
+
+1519719626 c:\users\alejandro\desktop\pc\proyectoestructuras\persona.hpp
+	<iostream>
+	"persona.h"
+	<string>
+	<list>
+
+1519719473 c:\users\alejandro\desktop\pc\proyectoestructuras\paquete.hpp
+	<iostream>
+	"paquete.h"
+	<string>
+	<list>
+	"Persona.h"
+
+1519719895 c:\users\alejandro\desktop\pc\proyectoestructuras\region.h
+	<stack>
+	<queue>
+	"region.hpp"
+
+1519719727 c:\users\alejandro\desktop\pc\proyectoestructuras\region.hpp
+	<iostream>
+	"region.h"
+	<string>
+	<list>
+
