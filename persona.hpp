@@ -10,8 +10,8 @@ using namespace std;
 void Persona::setCodigo(string codigoIn){
     codigo = codigoIn;
 }
-void Persona::setNombreYApellido(string nombreIn){
-    nombreYApellido = nombreIn;
+void Persona::setNombre(string nombreIn){
+    nombre = nombreIn;
 }
 void Persona::setDireccion(string direccionIn){
     direccion = direccionIn;
@@ -22,7 +22,13 @@ void Persona::setCiudad(string ciudadIn){
 void Persona::setTelefono( string telefonoIn){
     telefono =  telefonoIn;
 }
+void Persona::setApellido(string apellidoIn){
+    apellido = apellidoIn;   
+}
 
+string getApellido(){
+    return apellido;
+}
 string Persona::getCodigo( ){
     return codigo;
 }
