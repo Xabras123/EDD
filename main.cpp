@@ -125,7 +125,7 @@ int main()
 				float z=stof(*it);
 				it++;
 				lineIn=*it;
-				componente2Punto1(lineIn,poligonosMemoria,x,y,z,false);
+				
 			}
 			else if (milista.size()==4)
 			{
@@ -135,7 +135,7 @@ int main()
 				float y=stof(*it);
 				it++;
 				float z=stof(*it);
-				componente2Punto2(poligonosMemoria,x,y,z);
+				
 			}
 		}
 		else if(comando1==)
@@ -144,7 +144,7 @@ int main()
 			{
 				it++;
 				lineIn=*it;
-				componente2Punto3(lineIn,poligonosMemoria);
+				
 			}
 		}
 		else if(comando1=="ayuda"){
