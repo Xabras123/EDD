@@ -42,7 +42,7 @@ int main()
 		}
 		list<char*>::iterator it=milista.begin();
 		string comando1=*it;
-		if (comando1=="cargar")
+		if (comando1=="")
 		{
 			if (milista.size()==2)
 			{
