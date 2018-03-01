@@ -8,16 +8,16 @@ using namespace std;
 
 class Paquete{
 
-	private:
-		Persona remitente;
-		Persona destinatario;
-		int peso;
-		string tipo;
-		string numGuia;
+        private:
+                Persona remitente;
+                Persona destinatario;
+                int peso;
+                string tipo;
+                string numGuia;
 
-	public:
-		//Paquete();
-		//~Paquete();
+        public:
+                //Paquete();
+                //~Paquete();
         void setRemitente(Persona remitenteIn);
         void setDestinatario(Persona destinararioIn);
         void setPeso(int pesoIn);

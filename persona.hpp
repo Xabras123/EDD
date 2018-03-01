@@ -7,11 +7,8 @@
 #include <list>
 using namespace std;
 
-void Persona::setCodigo(string codigoIn){
-    codigo = codigoIn;
-}
-void Persona::setNombreYApellido(string nombreIn){
-    nombreYApellido = nombreIn;
+void Persona::setCedula(string cedulaIn){
+    cedula = cedulaIn;
 }
 void Persona::setDireccion(string direccionIn){
     direccion = direccionIn;
@@ -22,13 +19,13 @@ void Persona::setCiudad(string ciudadIn){
 void Persona::setTelefono( string telefonoIn){
     telefono =  telefonoIn;
 }
+void Persona::setNombre(string nombreIn){
+    nombre = nombreIn;
+}
+void Persona::setApellido(string apellidoIn){
+    apellido = apellidoIn;
+}
 
-string Persona::getCodigo( ){
-    return codigo;
-}
-string Persona::getNombreYApellido( ){
-    return nombreYApellido;
-}
 string Persona::getDireccion( ){
     return direccion;
 }
@@ -38,4 +35,15 @@ string Persona::getCiudad( ){
 string Persona::getTelefono (){
     return telefono;
 }
+string Persona::getNombre( ){
+    return nombre;
+}
+string Persona::getApellido(){
+    return apellido;
+}
+string Persona::getCedula( ){
+    return cedula;
+}
+
+
 #endif

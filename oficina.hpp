@@ -5,6 +5,8 @@
 #include "oficina.h"
 #include <string>
 #include <list>
+#include "region.h"
+#include "paquete.h"
 using namespace std;
 
 void Oficina::setCodigo(string codigoIn){
@@ -19,6 +21,12 @@ void Oficina::setDireccion(string direccionIn){
 void Oficina::setCiudad(string ciudadIn){
     ciudad = ciudadIn;
 }
+void Oficina::setListaRegiones(list<Region> listaRegionesIn){
+    listaRegiones = listaRegionesIn;
+}
+void Oficina::setListaPaquetes(list<Paquete> listaPaquetesIn){
+    listaPaquetes = listaPaquetesIn;
+}
 string Oficina::getCodigo( ){
     return codigo;
 }
@@ -31,5 +39,10 @@ string Oficina::getDireccion( ){
 string Oficina::getCiudad( ){
     return ciudad;
 }
-
+list<Region> Oficina::getListaRegiones(){
+    return listaRegiones;
+}
+list<Paquete> Oficina::getListaPaquetes(){
+    return listaPaquetes;
+}
 #endif
