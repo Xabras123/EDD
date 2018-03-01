@@ -33,8 +33,8 @@ bool buscarPaquete(string numGuiaIn, list<Paquete> &paquetesMemoria);
 Persona buscarPersona2(string cedulaIn, list<Persona> &personasMemoria);
 bool buscarOficina(string codigo, list<Oficina> &oficinasMemoria);
 bool buscarRegion(string codigo, list<Region> &regionesMemoria);
-Oficina &buscarOficina2(string codigo, list<Oficina> &oficinasMemoria);
-Region &buscarRegion2(string codigo, list<Region> &regionesMemoria);
+Oficina buscarOficina2(string codigo, list<Oficina> &oficinasMemoria);
+Region buscarRegion2(string codigo, list<Region> &regionesMemoria);
 void imprimirRegiones(list<Region> &regionesMemoria);
 void imprimirOficinas(list<Oficina> &oficinasMemoria);
 
@@ -48,15 +48,9 @@ int main()
     list<Paquete> listInP;
     list<Oficina> listInO;
     list<Region> listInR;
-    cargarPersonas( "Personas.csv", listIn);
-    cargarPaquetes( "Paquetes.csv", listInP, listIn, listInO, listInR);
-    cout<<"----------------------------------"<<endl;
-    imprimirOficinas(listInO);
-    cout<<"----------------------------------"<<endl;
-    imprimirRegiones(listInR);
     while(on)
 	{
-		cout<<"$";
+		cout<<"$ ";
 		char comando[300];
 		cin.getline(comando,300);
 		char * pch;
@@ -398,20 +392,28 @@ bool buscarRegion(string codigo, list<Region> &regionesMemoria)
             return true;
     return false;
 }
-Oficina &buscarOficina2(string codigo, list<Oficina> &oficinasMemoria)
+Oficina buscarOficina2(string codigo, list<Oficina> &oficinasMemoria)
 {
     Oficina o;
     for (list<Oficina>::iterator it=oficinasMemoria.begin(); it != oficinasMemoria.end(); ++it)
+    {
         if((*it).getCodigo() == codigo)
             o=*it;
+        else
+        	o.setCodigo("-1");
+    }
     return o;
 }
-Region &buscarRegion2(string codigo, list<Region> &regionesMemoria)
+Region buscarRegion2(string codigo, list<Region> &regionesMemoria)
 {
     Region r;
     for (list<Region>::iterator it=regionesMemoria.begin(); it != regionesMemoria.end(); ++it)
+    {
         if((*it).getCodigo() == codigo)
             r=*it;
+        else
+        	r.setCodigo("-1");
+    }
     return r;
 }
 void imprimirRegiones(list<Region> &regionesMemoria)
