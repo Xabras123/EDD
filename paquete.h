@@ -3,7 +3,7 @@
 #define __PAQUETE__H__
 #include <stack>
 #include <queue>
-#include "Persona.h"
+#include "persona.h"
 using namespace std;
 
 class Paquete{
