@@ -462,16 +462,19 @@ void imprimirPaquetesXRegion2(list<Oficina> &oficinasMemoria)
 void imprimirPaquetesXRegion(list<Oficina> &oficinasMemoria, list<Region> &regionesMemoria, list<Paquete> &paquetesMemoria)
 {
 	int cantidadAcum = 0;
+	list<Region> LRAux;
 	for (list<Region>::iterator itR1=regionesMemoria.begin(); itR1 != regionesMemoria.end(); ++itR1){
 		for (list<Oficina>::iterator itO = oficinasMemoria.begin(); itO != oficinasMemoria.end(); ++itO){
-			for (list<Region>::iterator itR=(*itO).getListaRegiones().begin(); itR != (*itO).getListaRegiones().end(); ++itR){
+			LRAux=(*itO).getListaRegiones();
+			for (list<Region>::iterator itR=LRAux.begin(); itR != LRAux.end(); ++itR){
 				if((*itR1).getNombre() == (*itR).getNombre())
 				{
-					cantidadAcum += (*itO).getListaRegiones().front().getListaPaquetes().size();
+					cantidadAcum += (*itR).getListaPaquetes().size();
 				}
 			}
 		}
 		cout<<cantidadAcum<<" paquetes en la region de reparto "<<(*itR1).getNombre()<<endl;
+		cantidadAcum=0;
 	}
 	cout<<" Para un total de "<<paquetesMemoria.size()<<" paquetes en el sistema"<<endl;
 }
