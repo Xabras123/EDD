@@ -158,7 +158,7 @@ int main()
 		{
 			if (milista.size()==1)
 			{
-				
+				imprimirPaquetesXRegion(listInO,listInR,listInP);	
 			}
 			else
 				cout<< "Parametros invalidos"<<endl;
@@ -449,8 +449,6 @@ void imprimirRegionesXoficina(list<Oficina> &oficinasMemoria){
 
 	for (list<Oficina>::iterator itO = oficinasMemoria.begin(); itO != oficinasMemoria.end(); ++itO)
 		cout<<"oficina "<<(*itO).getNombre()<<" y su region "<<(*itO).getListaRegiones().front().getNombre()<<endl;
-
-
 }
 void imprimirPaquetesXRegion2(list<Oficina> &oficinasMemoria)
 {
@@ -464,7 +462,6 @@ void imprimirPaquetesXRegion2(list<Oficina> &oficinasMemoria)
 void imprimirPaquetesXRegion(list<Oficina> &oficinasMemoria, list<Region> &regionesMemoria, list<Paquete> &paquetesMemoria)
 {
 	int cantidadAcum = 0;
-	int cantidadAcumTotal = 0;
 	for (list<Region>::iterator itR1=regionesMemoria.begin(); itR1 != regionesMemoria.end(); ++itR1){
 		for (list<Oficina>::iterator itO = oficinasMemoria.begin(); itO != oficinasMemoria.end(); ++itO){
 			for (list<Region>::iterator itR=(*itO).getListaRegiones().begin(); itR != (*itO).getListaRegiones().end(); ++itR){
