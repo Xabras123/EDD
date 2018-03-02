@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "region.h"
+#include "paquete.h"
 #include <string>
 #include <list>
 using namespace std;
@@ -20,5 +21,15 @@ string Region::getCodigo( ){
 }
 string Region::getNombre( ){
     return nombre;
+}
+void Region::setListaPaquetes(list<Paquete> listaPaquetesIn){
+    listaPaquetes = listaPaquetesIn;
+}
+list<Paquete> Region::getListaPaquetes(){
+    return listaPaquetes;
+}
+bool Region::agregarPaquete(Paquete paqueteIn){
+    listaPaquetes.insert(listaPaquetes.begin(), paqueteIn);
+    return true;
 }
 #endif // __REGION__HPP__

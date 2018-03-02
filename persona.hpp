@@ -1,10 +1,10 @@
 #ifndef __PERSONA__HPP__
 #define __PERSONA__HPP__
-
 #include <iostream>
 #include "persona.h"
 #include <string>
 #include <list>
+
 using namespace std;
 
 void Persona::setCedula(string cedulaIn){
@@ -25,7 +25,6 @@ void Persona::setNombre(string nombreIn){
 void Persona::setApellido(string apellidoIn){
     apellido = apellidoIn;
 }
-
 string Persona::getDireccion( ){
     return direccion;
 }
@@ -44,6 +43,5 @@ string Persona::getApellido(){
 string Persona::getCedula( ){
     return cedula;
 }
-
 
 #endif

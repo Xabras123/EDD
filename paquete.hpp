@@ -5,7 +5,7 @@
 #include "paquete.h"
 #include <string>
 #include <list>
-#include "persona.h"
+#include "Persona.h"
 
 using namespace std;
 

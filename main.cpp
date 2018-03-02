@@ -25,9 +25,9 @@ bool buscarPersona(string cedulaIn, list<Persona> &personasMemoria);
 bool registrarPersona(string nombre, string apellido, string cedula, string direccion, string ciudad, string telefono, list<Persona> &personasMemoria);
 bool cargarPaquetes(string nombreArchivo, list<Paquete> &paquetesMemoria,  list<Persona> &personasMemoria,list<Oficina> &oficinasMemoria, list<Region> &regionesMemoria);
 bool registrarPaquete(string cedulaRemitenteIn, string cedulaDestinatarioIn, string pesoIn, string tipoContenidoIn, string numGuiaIn,
-                      string codigoOficinaIn, string nombreOficinaIn, string direccionOficinaIn
-                      ,string ciudadOficinaIn, string codigoRegionIn, string nombreRegionstringIn,
-                      list<Paquete> &paquetesMemoria, list<Persona> &personasMemoria,list<Oficina> &oficinasMemoria, list<Region> &regionesMemoria);
+	string codigoOficinaIn, string nombreOficinaIn, string direccionOficinaIn
+	,string ciudadOficinaIn, string codigoRegionIn, string nombreRegionstringIn,
+	list<Paquete> &paquetesMemoria, list<Persona> &personasMemoria,list<Oficina> &oficinasMemoria, list<Region> &regionesMemoria);
 bool registrarPaqueteUnico(string cedulaRemitenteIn, string cedulaDestinatarioIn, string pesoIn, string tipoContenidoIn, string numGuiaIn,list<Paquete> &paquetesMemoria, list<Persona> &personasMemoria);
 bool buscarPaquete(string numGuiaIn, list<Paquete> &paquetesMemoria);
 Persona buscarPersona2(string cedulaIn, list<Persona> &personasMemoria);
@@ -37,18 +37,19 @@ Oficina buscarOficina2(string codigo, list<Oficina> &oficinasMemoria);
 Region buscarRegion2(string codigo, list<Region> &regionesMemoria);
 void imprimirRegiones(list<Region> &regionesMemoria);
 void imprimirOficinas(list<Oficina> &oficinasMemoria);
-
+void imprimirPaquetesXRegion2(list<Oficina> &oficinasMemoria);
+void imprimirPaquetesXRegion(list<Oficina> &oficinasMemoria, list<Region> &regionesMemoria, list<Paquete> &paquetesMemoria);
 
 int main()
 {
 	bool on = true;
 	bool encontrado=false;
 	string lineIn, lineIn2;
-    list<Persona> listIn;
-    list<Paquete> listInP;
-    list<Oficina> listInO;
-    list<Region> listInR;
-    while(on)
+	list<Persona> listIn;
+	list<Paquete> listInP;
+	list<Oficina> listInO;
+	list<Region> listInR;
+	while(on)
 	{
 		cout<<"$ ";
 		char comando[300];
@@ -189,8 +190,7 @@ int main()
 		else
 			cout<<"===Comando no valido"<<endl;
 	}
-
-    return 0;
+	return 0;
 }
 
 bool cargarPersonas(string nombreArchivo, list<Persona> &personasMemoria)
@@ -205,14 +205,14 @@ bool cargarPersonas(string nombreArchivo, list<Persona> &personasMemoria)
 		int i = 0;
 		while((myfile.peek()!=EOF))
 		{
-            getline (myfile,line);
-            vtoken = tokenizador(line, ',');
-            if(registrarPersona(vtoken[5], vtoken[4], vtoken[3], vtoken[2], vtoken[1], vtoken[0], personasMemoria))
-            {
-            	res=res;
-            }
-            else res= 1;
-            i++;
+			getline (myfile,line);
+			vtoken = tokenizador(line, ',');
+			if(registrarPersona(vtoken[5], vtoken[4], vtoken[3], vtoken[2], vtoken[1], vtoken[0], personasMemoria))
+			{
+				res=res;
+			}
+			else res= 1;
+			i++;
 		}
 	}
 	else
@@ -232,12 +232,12 @@ bool cargarPaquetes(string nombreArchivo, list<Paquete> &paquetesMemoria, list<P
 		getline (myfile,line);
 		int i = 0;
 		while((myfile.peek()!=EOF)){
-            getline (myfile,line);
-            vtoken = tokenizador(line, ',');
-            if(registrarPaquete(vtoken[10],vtoken[9],vtoken[8],vtoken[7],vtoken[6],vtoken[5], vtoken[4], vtoken[3], vtoken[2], vtoken[1], vtoken[0], paquetesMemoria, personasMemoria, oficinasMemoria, regionesMemoria)){
-                res=res;
-            }else res=1;
-            i++;
+			getline (myfile,line);
+			vtoken = tokenizador(line, ',');
+			if(registrarPaquete(vtoken[10],vtoken[9],vtoken[8],vtoken[7],vtoken[6],vtoken[5], vtoken[4], vtoken[3], vtoken[2], vtoken[1], vtoken[0], paquetesMemoria, personasMemoria, oficinasMemoria, regionesMemoria)){
+				res=res;
+			}else res=1;
+			i++;
 		}
 	}
 	else
@@ -249,181 +249,232 @@ bool cargarPaquetes(string nombreArchivo, list<Paquete> &paquetesMemoria, list<P
 
 vector<string> tokenizador(string stringIn, char token)
 {
-    vector<string> listOut;
-    string aux;
-    int i = 0;
-    while( i <= stringIn.size()){
+	vector<string> listOut;
+	string aux;
+	int i = 0;
+	while( i <= stringIn.size()){
 
-        if(stringIn[i] == token){
-            i++;
-            listOut.insert(listOut.begin(), aux );
-            aux.clear();
-        }
-        aux += stringIn[i];
-        i++;
-    }
-    aux.resize(aux.size()-1);
-    listOut.insert(listOut.begin(), aux );
-    return listOut;
+		if(stringIn[i] == token){
+			i++;
+			listOut.insert(listOut.begin(), aux );
+			aux.clear();
+		}
+		aux += stringIn[i];
+		i++;
+	}
+	aux.resize(aux.size()-1);
+	listOut.insert(listOut.begin(), aux );
+	return listOut;
 }
 
 bool registrarPersona(string nombre, string apellido, string cedula, string direccion, string ciudad, string telefono, list<Persona> &personasMemoria){
 
-    if(!buscarPersona(cedula, personasMemoria)){
-        Persona personaAux;
-        personaAux.setNombre(nombre);
-        personaAux.setApellido(apellido);
-        personaAux.setCedula(cedula);
-        personaAux.setDireccion(direccion);
-        personaAux.setCiudad(ciudad);
-        personaAux.setTelefono(telefono);
-        personasMemoria.insert(personasMemoria.begin(), personaAux);
-        return true;
-    }
-    else 
-    	return false;
+	if(!buscarPersona(cedula, personasMemoria))
+	{
+		Persona personaAux;
+		personaAux.setNombre(nombre);
+		personaAux.setApellido(apellido);
+		personaAux.setCedula(cedula);
+		personaAux.setDireccion(direccion);
+		personaAux.setCiudad(ciudad);
+		personaAux.setTelefono(telefono);
+		personasMemoria.insert(personasMemoria.begin(), personaAux);
+		return true;
+	}
+	else 
+		return false;
 }
 
 bool buscarPersona(string cedulaIn, list<Persona> &personasMemoria)
 {
-    for (list<Persona>::iterator it=personasMemoria.begin(); it != personasMemoria.end(); ++it)
-        if((*it).getCedula() == cedulaIn)
-            return true;
-    return false;
+	for (list<Persona>::iterator it=personasMemoria.begin(); it != personasMemoria.end(); ++it)
+	{
+		if((*it).getCedula() == cedulaIn)
+		{
+			return true;
+		}
+	}
+	return false;
 }
 Persona buscarPersona2(string cedulaIn, list<Persona> &personasMemoria)
 {
-    Persona personaOu;
-    for (list<Persona>::iterator it=personasMemoria.begin(); it != personasMemoria.end(); ++it)
-        if((*it).getCedula() == cedulaIn)
-            return (*it);
-    return personaOu;
+	Persona personaOu;
+	for (list<Persona>::iterator it=personasMemoria.begin(); it != personasMemoria.end(); ++it)
+	{
+		if((*it).getCedula() == cedulaIn)
+		{
+			return (*it);
+		}
+	}
+	return personaOu;
 }
 bool registrarPaquete(string cedulaRemitenteIn, string cedulaDestinatarioIn, string pesoIn, string tipoContenidoIn, string numGuiaIn,
-                      string codigoOficinaIn, string nombreOficinaIn, string direccionOficinaIn
-                      ,string ciudadOficinaIn, string codigoRegionIn ,string nombreRegionstringIn ,
-                      list<Paquete> &paquetesMemoria, list<Persona> &personasMemoria, list<Oficina> &oficinasMemoria, list<Region> &regionesMemoria)
+	string codigoOficinaIn, string nombreOficinaIn, string direccionOficinaIn
+	,string ciudadOficinaIn, string codigoRegionIn ,string nombreRegionstringIn ,
+	list<Paquete> &paquetesMemoria, list<Persona> &personasMemoria, list<Oficina> &oficinasMemoria, list<Region> &regionesMemoria)
 {
-    list<Paquete> listaPAux;
-    Paquete paqueteAux;
-    Oficina auxO;
-    Region auxR;
-    if(!buscarPaquete(numGuiaIn, paquetesMemoria))
-    {
-        if(buscarOficina(codigoOficinaIn, oficinasMemoria))
-        {
-            paqueteAux.setRemitente(buscarPersona2(cedulaRemitenteIn, personasMemoria));
-            paqueteAux.setDestinatario(buscarPersona2(cedulaDestinatarioIn, personasMemoria));
-            paqueteAux.setPeso(1);
-            paqueteAux.setNumGuia(numGuiaIn);
-            paquetesMemoria.insert(paquetesMemoria.begin(), paqueteAux);
-            listaPAux = buscarOficina2(codigoOficinaIn, oficinasMemoria).getListaPaquetes();
-            listaPAux.insert(listaPAux.begin(), paqueteAux);
-            buscarOficina2(codigoOficinaIn, oficinasMemoria).setListaPaquetes(listaPAux);
-            if(!buscarRegion(codigoRegionIn, regionesMemoria))
-            {
-                auxR.setCodigo(codigoRegionIn);
-                auxR.setNombre(nombreRegionstringIn);
-                regionesMemoria.insert(regionesMemoria.begin(), auxR);
-            }
-        }
-        else 
-        {
-            auxO.setCodigo(codigoOficinaIn);
-            auxO.setNombre(nombreOficinaIn);
-            auxO.setDireccion(direccionOficinaIn);
-            auxO.setCiudad(ciudadOficinaIn);
-            if(!buscarRegion(codigoRegionIn, regionesMemoria))
-            {
-                auxR.setCodigo(codigoRegionIn);
-                auxR.setNombre(nombreRegionstringIn);
-                regionesMemoria.insert(regionesMemoria.begin(), auxR);
-            }
-            paqueteAux.setRemitente(buscarPersona2(cedulaRemitenteIn, personasMemoria));
-            paqueteAux.setDestinatario(buscarPersona2(cedulaDestinatarioIn, personasMemoria));
-            paqueteAux.setPeso(1);
-            paqueteAux.setNumGuia(numGuiaIn);
-            paquetesMemoria.insert(paquetesMemoria.begin(), paqueteAux);
-            auxO.getListaPaquetes().insert(auxO.getListaPaquetes().begin(),paqueteAux);
-            oficinasMemoria.insert(oficinasMemoria.begin(),auxO);
-        }
-        return true;
-    }
-    else 
-    	return false;
-}
-bool registrarPaqueteUnico(string cedulaRemitenteIn, string cedulaDestinatarioIn, string pesoIn, string tipoContenidoIn, string numGuiaIn,list<Paquete> &paquetesMemoria, list<Persona> &personasMemoria)
-{
-    Paquete paqueteAux;
-    if(!buscarPaquete(numGuiaIn, paquetesMemoria))
-    {
-        paqueteAux.setRemitente(buscarPersona2(cedulaRemitenteIn, personasMemoria));
-        paqueteAux.setDestinatario(buscarPersona2(cedulaDestinatarioIn, personasMemoria));
-        paqueteAux.setPeso(1);
-        paqueteAux.setNumGuia(numGuiaIn);
-        paquetesMemoria.insert(paquetesMemoria.begin(), paqueteAux);
-        return true;
-    }
-    else 
-    {
-        return false;
-    }
-    return false;
+	list<Paquete> listaPAux;
+	list<Region> listaRAux;
+	Paquete paqueteAux;
+	Oficina auxO;
+	Region auxR;
+	if(!buscarPaquete(numGuiaIn, paquetesMemoria))
+	{
+		if(buscarOficina(codigoOficinaIn, oficinasMemoria))
+		{
+			paqueteAux.setRemitente(buscarPersona2(cedulaRemitenteIn, personasMemoria));
+			paqueteAux.setDestinatario(buscarPersona2(cedulaDestinatarioIn, personasMemoria));
+			paqueteAux.setPeso(1);
+			paqueteAux.setNumGuia(numGuiaIn);
+			paquetesMemoria.insert(paquetesMemoria.begin(), paqueteAux);
+			if(!buscarRegion(codigoRegionIn, regionesMemoria)){
+				auxR.setCodigo(codigoRegionIn);
+				auxR.setNombre(nombreRegionstringIn);
+				regionesMemoria.insert(regionesMemoria.begin(), auxR);
+				buscarOficina2(codigoOficinaIn, oficinasMemoria).agregarRegion(auxR);
+
+			}
+			buscarOficina2(codigoOficinaIn, oficinasMemoria).agregarPaquete(paqueteAux, codigoRegionIn);
+		}
+		else 
+		{
+			auxO.setCodigo(codigoOficinaIn);
+			auxO.setNombre(nombreOficinaIn);
+			auxO.setDireccion(direccionOficinaIn);
+			auxO.setCiudad(ciudadOficinaIn);
+			if(!buscarRegion(codigoRegionIn, regionesMemoria))
+			{
+				auxR.setCodigo(codigoRegionIn);
+				auxR.setNombre(nombreRegionstringIn);
+				regionesMemoria.insert(regionesMemoria.begin(), auxR);
+				auxO.agregarRegion(auxR);
+
+			}
+			paqueteAux.setRemitente(buscarPersona2(cedulaRemitenteIn, personasMemoria));
+			paqueteAux.setDestinatario(buscarPersona2(cedulaDestinatarioIn, personasMemoria));
+			paqueteAux.setPeso(1);
+			paqueteAux.setNumGuia(numGuiaIn);
+			auxO.agregarPaquete(paqueteAux, codigoRegionIn);
+			paquetesMemoria.insert(paquetesMemoria.begin(), paqueteAux);
+			oficinasMemoria.insert(oficinasMemoria.begin(),auxO);
+		}
+		return true;
+	}
+	else return false;
 }
 
+bool registrarPaqueteUnico(string cedulaRemitenteIn, string cedulaDestinatarioIn, string pesoIn, string tipoContenidoIn, string numGuiaIn,list<Paquete> &paquetesMemoria, list<Persona> &personasMemoria)
+{
+	Paquete paqueteAux;
+	if(!buscarPaquete(numGuiaIn, paquetesMemoria))
+	{
+		paqueteAux.setRemitente(buscarPersona2(cedulaRemitenteIn, personasMemoria));
+		paqueteAux.setDestinatario(buscarPersona2(cedulaDestinatarioIn, personasMemoria));
+		paqueteAux.setPeso(1);
+		paqueteAux.setNumGuia(numGuiaIn);
+		paquetesMemoria.insert(paquetesMemoria.begin(), paqueteAux);
+		return true;
+	}
+	else 
+	{
+		return false;
+	}
+}
 bool buscarPaquete(string numGuiaIn, list<Paquete> &paquetesMemoria)
 {
-    for (list<Paquete>::iterator it=paquetesMemoria.begin(); it != paquetesMemoria.end(); ++it)
-        if((*it).getNumGuia() == numGuiaIn)
-            return true;
-    return false;
+	for (list<Paquete>::iterator it=paquetesMemoria.begin(); it != paquetesMemoria.end(); ++it){
+		if((*it).getNumGuia() == numGuiaIn){
+			return true;
+		}
+	}
+	return false;
 }
 bool buscarOficina(string codigo, list<Oficina> &oficinasMemoria)
 {
-    for (list<Oficina>::iterator it=oficinasMemoria.begin(); it != oficinasMemoria.end(); ++it)
-        if((*it).getCodigo() == codigo)
-            return true;
-    return false;
+	for (list<Oficina>::iterator it=oficinasMemoria.begin(); it != oficinasMemoria.end(); ++it)
+	{
+		if((*it).getCodigo() == codigo)
+		{
+			return true;
+		}
+	}
+	return false;
 }
 bool buscarRegion(string codigo, list<Region> &regionesMemoria)
 {
-    for (list<Region>::iterator it=regionesMemoria.begin(); it != regionesMemoria.end(); ++it)
-        if((*it).getCodigo() == codigo)
-            return true;
-    return false;
+	for (list<Region>::iterator it=regionesMemoria.begin(); it != regionesMemoria.end(); ++it)
+	{
+		if((*it).getCodigo() == codigo)
+		{
+			return true;
+		}
+	}
+	return false;
 }
 Oficina buscarOficina2(string codigo, list<Oficina> &oficinasMemoria)
 {
-    Oficina o;
-    for (list<Oficina>::iterator it=oficinasMemoria.begin(); it != oficinasMemoria.end(); ++it)
-    {
-        if((*it).getCodigo() == codigo)
-            o=*it;
-        else
-        	o.setCodigo("-1");
-    }
-    return o;
+	Oficina o;
+	for (list<Oficina>::iterator it=oficinasMemoria.begin(); it != oficinasMemoria.end(); ++it)
+	{
+		if((*it).getCodigo() == codigo)
+			o=*it;
+		else
+			o.setCodigo("-1");
+	}
+	return o;
 }
 Region buscarRegion2(string codigo, list<Region> &regionesMemoria)
 {
-    Region r;
-    for (list<Region>::iterator it=regionesMemoria.begin(); it != regionesMemoria.end(); ++it)
-    {
-        if((*it).getCodigo() == codigo)
-            r=*it;
-        else
-        	r.setCodigo("-1");
-    }
-    return r;
+	Region r;
+	for (list<Region>::iterator it=regionesMemoria.begin(); it != regionesMemoria.end(); ++it)
+	{
+		if((*it).getCodigo() == codigo)
+			r=*it;
+		else
+			r.setCodigo("-1");
+	}
+	return r;
 }
 void imprimirRegiones(list<Region> &regionesMemoria)
 {
-    for (list<Region>::iterator it=regionesMemoria.begin(); it != regionesMemoria.end(); ++it)
-        cout<<"Region: "<<(*it).getNombre()<<endl;
+	for (list<Region>::iterator it=regionesMemoria.begin(); it != regionesMemoria.end(); ++it)
+		cout<<"Region: "<<(*it).getNombre()<<endl;
 }
 void imprimirOficinas(list<Oficina> &oficinasMemoria)
 {
-    for (list<Oficina>::iterator it=oficinasMemoria.begin(); it != oficinasMemoria.end(); ++it)
-        cout<<"Oficina: "<<(*it).getNombre()<<endl;
+	for (list<Oficina>::iterator it=oficinasMemoria.begin(); it != oficinasMemoria.end(); ++it)
+		cout<<"Oficina: "<<(*it).getNombre()<<endl;
 }
+void imprimirRegionesXoficina(list<Oficina> &oficinasMemoria){
 
+	for (list<Oficina>::iterator itO = oficinasMemoria.begin(); itO != oficinasMemoria.end(); ++itO)
+		cout<<"oficina "<<(*itO).getNombre()<<" y su region "<<(*itO).getListaRegiones().front().getNombre()<<endl;
+
+
+}
+void imprimirPaquetesXRegion2(list<Oficina> &oficinasMemoria)
+{
+	for (list<Oficina>::iterator itO = oficinasMemoria.begin(); itO != oficinasMemoria.end(); ++itO)
+	{
+		cout<<(*itO).getNombre()<< " con "<<(*itO).getListaRegiones().size() <<" regiones y su region cabeza"<<(*itO).getListaRegiones().front().getNombre()
+		<<" y sus paquetes "<<"n = "<<(*itO).getListaRegiones().front().getListaPaquetes().size()<<
+		(*itO).getListaRegiones().front().getListaPaquetes().front().getRemitente().getNombre()<<endl;
+	}
+}
+void imprimirPaquetesXRegion(list<Oficina> &oficinasMemoria, list<Region> &regionesMemoria, list<Paquete> &paquetesMemoria)
+{
+	int cantidadAcum = 0;
+	int cantidadAcumTotal = 0;
+	for (list<Region>::iterator itR1=regionesMemoria.begin(); itR1 != regionesMemoria.end(); ++itR1){
+		for (list<Oficina>::iterator itO = oficinasMemoria.begin(); itO != oficinasMemoria.end(); ++itO){
+			for (list<Region>::iterator itR=(*itO).getListaRegiones().begin(); itR != (*itO).getListaRegiones().end(); ++itR){
+				if((*itR1).getNombre() == (*itR).getNombre())
+				{
+					cantidadAcum += (*itO).getListaRegiones().front().getListaPaquetes().size();
+				}
+			}
+		}
+		cout<<cantidadAcum<<" paquetes en la region de reparto "<<(*itR1).getNombre()<<endl;
+	}
+	cout<<" Para un total de "<<paquetesMemoria.size()<<" paquetes en el sistema"<<endl;
+}
