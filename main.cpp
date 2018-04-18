@@ -50,6 +50,7 @@ int main()
 	list<Oficina> listInO;
 	list<Region> listInR;
 	list<char*> miLista;
+	list<char*>::iterator it;
 	while(on)
 	{
 		cout<<"$ ";
@@ -57,13 +58,13 @@ int main()
 		cin.getline(comando,300);
 		char * pch;
 		miLista.clear();
+		it=NULL;
 		pch = strtok (comando," ");
 		while (pch != NULL)
 		{
 			miLista.push_back(pch);
 			pch = strtok (NULL, " ");
 		}
-		list<char*>::iterator it;
 		it=miLista.begin();
 		comand=*it;
 		if (comand=="cargarPersonas")
