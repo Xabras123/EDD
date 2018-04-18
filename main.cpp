@@ -51,24 +51,20 @@ int main()
 	list<Paquete> listInP;
 	list<Oficina> listInO;
 	list<Region> listInR;
-	list<char*> miLista;
-	list<char*>::iterator it;
 	while(on)
 	{
-		cout<<comand<<"$ ";
+		cout<<"$ ";
 		cin.getline(comando,300);
 		char* pch;
 		pch = strtok (comando," ");
-		miLista.clear();
+		list<char*> miLista;
+		list<char*>::iterator it=miLista.begin();
 		while (pch != NULL)
 		{
 			miLista.push_back(pch);
 			pch = strtok (NULL, " ");
 		}
-		it=miLista.begin();
-		comand=*miLista.begin();
-		cout<<"comand "<<comand<<endl;
-		if (strcmp(comand,"cargarPersonas")==0)
+		if (strcmp(*miLista.begin(),"cargarPersonas")==0)
 		{
 			if (miLista.size()==2)
 			{
@@ -88,7 +84,7 @@ int main()
 				cout<< "Parametros invalidos"<<endl;
 			}
 		}
-		else if(strcmp(comand,"cargarPaquetes")==0)
+		else if(strcmp(*miLista.begin(),"cargarPaquetes")==0)
 		{
 			if (miLista.size()==2)
 			{
@@ -108,7 +104,7 @@ int main()
 				cout<< "Parametros invalidos"<<endl;
 			}
 		}
-		else if(strcmp(comand,"registrarPersona")==0)
+		else if(strcmp(*miLista.begin(),"registrarPersona")==0)
 		{
 
 			if (miLista.size()==1)
@@ -134,7 +130,7 @@ int main()
 				cout<< "Parametros invalidos"<<endl;
 			}
 		}
-		else if(strcmp(comand,"registrarPaquete")==0)
+		else if(strcmp(*miLista.begin(),"registrarPaquete")==0)
 		{
 			if (miLista.size()==1)
 			{
@@ -159,7 +155,7 @@ int main()
 				cout<< "Parametros invalidos"<<endl;
 			}
 		}
-		else if(strcmp(comand,"conteoPaquetes")==0)
+		else if(strcmp(*miLista.begin(),"conteoPaquetes")==0)
 		{
 			if (miLista.size()==1)
 			{
@@ -168,7 +164,7 @@ int main()
 			else
 				cout<< "Parametros invalidos"<<endl;
 		}
-		else if(strcmp(comand,"ayuda")==0)
+		else if(strcmp(*miLista.begin(),"ayuda")==0)
 		{
 			if (miLista.size()==1)
 			{
@@ -191,10 +187,11 @@ int main()
 					cout<<"===salir"<<endl<<"====Termina la ejecucion de la aplicacion."<<endl;
 			}
 		}
-		else if(strcmp(comand,"salir")==0)
+		else if(strcmp(*miLista.begin(),"salir")==0)
 			on = false;
 		else
 			cout<<"===Comando no valido"<<endl;
+		miLista.clear();
 	}
 	return 0;
 }
