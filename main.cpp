@@ -44,18 +44,19 @@ int main()
 {
 	bool on = true;
 	bool encontrado=false;
-	string lineIn, lineIn2;
+	string lineIn=" ", lineIn2=" ", comand=" ";
 	list<Persona> listIn;
 	list<Paquete> listInP;
 	list<Oficina> listInO;
 	list<Region> listInR;
+	list<char*> miLista;
 	while(on)
 	{
 		cout<<"$ ";
 		char comando[300]={' '};
 		cin.getline(comando,300);
 		char * pch;
-		list<char*> miLista;
+		miLista.clear();
 		pch = strtok (comando," ");
 		while (pch != NULL)
 		{
@@ -64,7 +65,7 @@ int main()
 		}
 		list<char*>::iterator it;
 		it=miLista.begin();
-		string comand=*it;
+		comand=*it;
 		if (comand=="cargarPersonas")
 		{
 			if (miLista.size()==2)
