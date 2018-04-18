@@ -67,7 +67,7 @@ int main()
 		}
 		it=miLista.begin();
 		comand=*it;
-		if (comand=="cargarPersonas")
+		if (strcmp(comand,"cargarPersonas")==0)
 		{
 			if (miLista.size()==2)
 			{
@@ -87,7 +87,7 @@ int main()
 				cout<< "Parametros invalidos"<<endl;
 			}
 		}
-		else if(comand=="cargarPaquetes")
+		else if(strcmp(comand,"cargarPaquetes")==0)
 		{
 			if (miLista.size()==2)
 			{
@@ -107,7 +107,7 @@ int main()
 				cout<< "Parametros invalidos"<<endl;
 			}
 		}
-		else if(comand=="registrarPersona")
+		else if(strcmp(comand,"registrarPersona")==0)
 		{
 
 			if (miLista.size()==1)
@@ -133,7 +133,8 @@ int main()
 				cout<< "Parametros invalidos"<<endl;
 			}
 		}
-		else if(comand=="registrarPaquete"){
+		else if(strcmp(comand,"registrarPaquete")==0)
+		{
 			if (miLista.size()==1)
 			{
 				string cedulaRemitente,cedulaDestinatario,peso,tipoContenido,numGuia;
@@ -157,7 +158,7 @@ int main()
 				cout<< "Parametros invalidos"<<endl;
 			}
 		}
-		else if(comand=="conteoPaquetes")
+		else if(strcmp(comand,"conteoPaquetes")==0)
 		{
 			if (miLista.size()==1)
 			{
@@ -166,7 +167,8 @@ int main()
 			else
 				cout<< "Parametros invalidos"<<endl;
 		}
-		else if(comand=="ayuda"){
+		else if(strcmp(comand,"ayuda")==0)
+		{
 			if (miLista.size()==1)
 			{
 				cout<<endl<<"Comandos disponibles: "<<endl<<"   cargarPersonas"<<endl<<"   cargarPaquetes"<<endl<<"   registrarPersona"<<endl<<"   registrarPaquete"<<endl<<"   conteoPaquetes"<<endl<<"   salir"<<endl;
@@ -188,7 +190,7 @@ int main()
 					cout<<"===salir"<<endl<<"====Termina la ejecucion de la aplicacion."<<endl;
 			}
 		}
-		else if(comand=="salir")
+		else if(strcmp(comand,"salir")==0)
 			on = false;
 		else
 			cout<<"===Comando no valido"<<endl;
