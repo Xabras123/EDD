@@ -52,21 +52,22 @@ int main()
 	while(on)
 	{
 		cout<<"$ ";
-		char comando[300];
+		char comando[300]={' '};
 		cin.getline(comando,300);
 		char * pch;
-		list<char*> milista;
+		list<char*> miLista;
 		pch = strtok (comando," ");
 		while (pch != NULL)
 		{
-			milista.push_back(pch);
+			miLista.push_back(pch);
 			pch = strtok (NULL, " ");
 		}
-		list<char*>::iterator it=milista.begin();
+		list<char*>::iterator it;
+		it=miLista.begin();
 		string comand=*it;
 		if (comand=="cargarPersonas")
 		{
-			if (milista.size()==2)
+			if (miLista.size()==2)
 			{
 				it++;
 				lineIn=*it;
@@ -86,7 +87,7 @@ int main()
 		}
 		else if(comand=="cargarPaquetes")
 		{
-			if (milista.size()==2)
+			if (miLista.size()==2)
 			{
 				it++;
 				lineIn=*it;
@@ -107,7 +108,7 @@ int main()
 		else if(comand=="registrarPersona")
 		{
 
-			if (milista.size()==1)
+			if (miLista.size()==1)
 			{
 				string nombre,apellido,cedula,direccion,ciudad,telefono;
 				cout<<"Nombre: ";
@@ -131,7 +132,7 @@ int main()
 			}
 		}
 		else if(comand=="registrarPaquete"){
-			if (milista.size()==1)
+			if (miLista.size()==1)
 			{
 				string cedulaRemitente,cedulaDestinatario,peso,tipoContenido,numGuia;
 				cout<<"Cedula remitente: ";
@@ -156,7 +157,7 @@ int main()
 		}
 		else if(comand=="conteoPaquetes")
 		{
-			if (milista.size()==1)
+			if (miLista.size()==1)
 			{
 				imprimirPaquetesXRegion(listInO,listInR,listInP);	
 			}
@@ -164,11 +165,11 @@ int main()
 				cout<< "Parametros invalidos"<<endl;
 		}
 		else if(comand=="ayuda"){
-			if (milista.size()==1)
+			if (miLista.size()==1)
 			{
 				cout<<endl<<"Comandos disponibles: "<<endl<<"   cargarPersonas"<<endl<<"   cargarPaquetes"<<endl<<"   registrarPersona"<<endl<<"   registrarPaquete"<<endl<<"   conteoPaquetes"<<endl<<"   salir"<<endl;
 			}
-			else if (milista.size()==2){
+			else if (miLista.size()==2){
 				it++;
 				lineIn=*it;
 				if(lineIn=="cargarPersonas")
