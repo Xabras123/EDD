@@ -58,7 +58,6 @@ int main()
 		cin.getline(comando,300);
 		char * pch;
 		miLista.clear();
-		*it=NULL;
 		pch = strtok (comando," ");
 		while (pch != NULL)
 		{
@@ -281,7 +280,7 @@ bool registrarPersona(string nombre, string apellido, string cedula, string dire
 		personaAux.setDireccion(direccion);
 		personaAux.setCiudad(ciudad);
 		personaAux.setTelefono(telefono);
-		personasMemoria.insert(personasMemoria.begin(), personaAux);
+		personasMemoria.push_front(personaAux);
 		return true;
 	}
 	else 
