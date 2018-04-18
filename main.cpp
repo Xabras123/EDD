@@ -56,7 +56,11 @@ int main()
 	{
 		cout<<"$ ";
 		char comando[300]={' '};
+		cin.clear();
+        cin.sync();
 		cin.getline(comando,300);
+		cin.clear();
+    	cin.sync();
 		char * pch;
 		miLista.clear();
 		pch = strtok (comando," ");
