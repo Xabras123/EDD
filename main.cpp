@@ -58,7 +58,7 @@ int main()
 		cin.getline(comando,300);
 		char * pch;
 		miLista.clear();
-		it=NULL;
+		*it=NULL;
 		pch = strtok (comando," ");
 		while (pch != NULL)
 		{
