@@ -44,7 +44,8 @@ int main()
 {
 	bool on = true;
 	bool encontrado=false;
-	string lineIn=" ", lineIn2=" ", comand=" ";
+	string lineIn=" ", lineIn2=" ";
+	char* comand;
 	list<Persona> listIn;
 	list<Paquete> listInP;
 	list<Oficina> listInO;
