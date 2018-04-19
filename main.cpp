@@ -10,7 +10,6 @@
 #include <list>
 #include <string.h>
 #include <fstream>
-#include <string>
 #include <stdlib.h>
 #include <limits.h>
 #include <cmath>
@@ -44,7 +43,7 @@ int main()
 {
 	bool on = true;
 	bool encontrado=false;
-	string lineIn=" ", lineIn2=" ";
+	string lineIn=" ";
 	char* comand;
 	char comando[300]={' '};
 	list<Persona> listIn;
@@ -56,20 +55,20 @@ int main()
 		cout<<"$ ";
 		cin.getline(comando,300);
 		char* pch;
-		pch = strtok (comando," ");
-		list<char*> miLista;
-		list<char*>::iterator it=miLista.begin();
+		char* miLista[10];
+    int cantCmd=0;
+    pch = strtok (comando," ");
 		while (pch != NULL)
 		{
-			miLista.push_back(pch);
+			miLista[cantCmd]=pch;
+      cantCmd++;
 			pch = strtok (NULL, " ");
 		}
-		if (strcmp(*miLista.begin(),"cargarPersonas")==0)
+		if (strcmp(miLista[0],"cargarPersonas")==0)
 		{
-			if (miLista.size()==2)
+			if (cantCmd==2)
 			{
-				it++;
-				lineIn=*it;
+				lineIn=miLista[1];
 				if(cargarPersonas(lineIn,listIn))
 				{
 					cout<<"La información desde el archivo "<<lineIn<<" ha sido cargada exitosamente"<<endl;
@@ -84,12 +83,11 @@ int main()
 				cout<< "Parametros invalidos"<<endl;
 			}
 		}
-		else if(strcmp(*miLista.begin(),"cargarPaquetes")==0)
+		else if(strcmp(miLista[0],"cargarPaquetes")==0)
 		{
-			if (miLista.size()==2)
+			if (cantCmd==2)
 			{
-				it++;
-				lineIn=*it;
+				lineIn=miLista[1];
 				if(cargarPaquetes(lineIn,listInP, listIn, listInO, listInR))
 				{
 					cout<<"La información desde el archivo "<<lineIn<<" ha sido cargada exitosamente"<<endl;
@@ -104,10 +102,10 @@ int main()
 				cout<< "Parametros invalidos"<<endl;
 			}
 		}
-		else if(strcmp(*miLista.begin(),"registrarPersona")==0)
+		else if(strcmp(miLista[0],"registrarPersona")==0)
 		{
 
-			if (miLista.size()==1)
+			if (cantCmd==1)
 			{
 				string nombre,apellido,cedula,direccion,ciudad,telefono;
 				cout<<"Nombre: ";
@@ -130,9 +128,9 @@ int main()
 				cout<< "Parametros invalidos"<<endl;
 			}
 		}
-		else if(strcmp(*miLista.begin(),"registrarPaquete")==0)
+		else if(strcmp(miLista[0],"registrarPaquete")==0)
 		{
-			if (miLista.size()==1)
+			if (cantCmd==1)
 			{
 				string cedulaRemitente,cedulaDestinatario,peso,tipoContenido,numGuia;
 				cout<<"Cedula remitente: ";
@@ -155,24 +153,23 @@ int main()
 				cout<< "Parametros invalidos"<<endl;
 			}
 		}
-		else if(strcmp(*miLista.begin(),"conteoPaquetes")==0)
+		else if(strcmp(miLista[0],"conteoPaquetes")==0)
 		{
-			if (miLista.size()==1)
+			if (cantCmd==1)
 			{
-				imprimirPaquetesXRegion(listInO,listInR,listInP);	
+				imprimirPaquetesXRegion(listInO,listInR,listInP);
 			}
 			else
 				cout<< "Parametros invalidos"<<endl;
 		}
-		else if(strcmp(*miLista.begin(),"ayuda")==0)
+		else if(strcmp(miLista[0],"ayuda")==0)
 		{
-			if (miLista.size()==1)
+			if (cantCmd==1)
 			{
 				cout<<endl<<"Comandos disponibles: "<<endl<<"   cargarPersonas"<<endl<<"   cargarPaquetes"<<endl<<"   cargarRegiones"<<endl<<"   cargarOficinas"<<endl<<"   registrarPersona"<<endl<<"   registrarPaquete"<<endl<<"   registrarOficina"<<endl<<"   registrarRegion"<<endl<<"   conteoPaquetes"<<endl<<"   salir"<<endl;
 			}
-			else if (miLista.size()==2){
-				it++;
-				lineIn=*it;
+			else if (cantCmd==2){
+				lineIn=miLista[1];
 				if(lineIn=="cargarPersonas")
 					cout<<"===cargarPersonas <nombre_archivo>"<<endl<<"====Carga en memoria la información de las personas contenida en el archivo identificado por nombre_archivo"<<endl;
 				if(lineIn=="cargarPaquetes")
@@ -195,11 +192,10 @@ int main()
 					cout<<"===salir"<<endl<<"====Termina la ejecucion de la aplicacion."<<endl;
 			}
 		}
-		else if(strcmp(*miLista.begin(),"salir")==0)
+		else if(strcmp(miLista[0],"salir")==0)
 			on = false;
 		else
 			cout<<"===Comando no valido"<<endl;
-		miLista.clear();
 	}
 	return 0;
 }
@@ -290,7 +286,7 @@ bool registrarPersona(string nombre, string apellido, string cedula, string dire
 		personasMemoria.push_front(personaAux);
 		return true;
 	}
-	else 
+	else
 		return false;
 }
 bool buscarPersona(string cedulaIn, list<Persona> &personasMemoria)
@@ -344,7 +340,7 @@ bool registrarPaquete(string cedulaRemitenteIn, string cedulaDestinatarioIn, str
 			}
 			buscarOficina2(codigoOficinaIn, oficinasMemoria).agregarPaquete(paqueteAux, codigoRegionIn);
 		}
-		else 
+		else
 		{
 			auxO.setCodigo(codigoOficinaIn);
 			auxO.setNombre(nombreOficinaIn);
@@ -382,7 +378,7 @@ bool registrarPaqueteUnico(string cedulaRemitenteIn, string cedulaDestinatarioIn
 		paquetesMemoria.insert(paquetesMemoria.begin(), paqueteAux);
 		return true;
 	}
-	else 
+	else
 	{
 		return false;
 	}
